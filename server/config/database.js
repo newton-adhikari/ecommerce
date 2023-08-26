@@ -6,9 +6,6 @@ const connectDatabase = () => {
         .then(res => {
             console.log(`database connected at ${res.connection.host}`)
         })
-        .catch(err => {
-            console.log(err);
-        })
 }
 
 module.exports = { connectDatabase }
