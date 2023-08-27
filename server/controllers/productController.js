@@ -2,6 +2,7 @@ const mongoose         = require("mongoose");
 const Product          = require("../models/productModel");
 const ErrorHandler     = require("../utils/errorHandler");
 const catchAsyncError  = require("../middleware/catchAsyncError");
+const ApiFeatures      = require("../utils/ApiFeatures");
 
 exports.createProduct = catchAsyncError(async (req, res, next) => {
 
@@ -10,13 +11,15 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
     res.status(201).json({success: true, product})
 });
 
-exports.getAllProducts = async (req, res) => {
-    const products = await Product.find({});
+exports.getAllProducts = catchAsyncError(async (req, res) => {
+    const itemsPerPage  = 5;
+    const totalProducts = await Product.countDocuments();
+    const apiFeatures   = new ApiFeatures(Product.find(), req.query); // can also send Product(model) here
+    const products      = await apiFeatures.search().filter().pagination(itemsPerPage).query;
+    return res.json({products, totalProducts});
+});
 
-    return res.json(products);
-}
-
-exports.getProductDetails = async (req, res, next) => {
+exports.getProductDetails = catchAsyncError(async (req, res, next) => {
     if (mongoose.Types.ObjectId.isValid(req.params.id)) {
         const product = await Product.findById(req.params.id);
 
@@ -35,9 +38,9 @@ exports.getProductDetails = async (req, res, next) => {
         message: "Invalid product ID"
     }) 
 
-}
+});
 
-exports.updateProduct = async (req, res) => {
+exports.updateProduct = catchAsyncError(async (req, res) => {
     let product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -54,9 +57,9 @@ exports.updateProduct = async (req, res) => {
         success: true,
         product
     })
-}
+});
 
-exports.deleteProduct = async (req, res) => {
+exports.deleteProduct = catchAsyncError(async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -69,4 +72,4 @@ exports.deleteProduct = async (req, res) => {
         success: true,
         message: "Product deleted successfully"
     })
-}
+});
