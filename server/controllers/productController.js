@@ -1,10 +1,11 @@
-const mongoose         = require("mongoose");
-const Product          = require("../models/productModel");
-const ErrorHandler     = require("../utils/errorHandler");
-const catchAsyncError  = require("../middleware/catchAsyncError");
-const ApiFeatures      = require("../utils/ApiFeatures");
+const mongoose            = require("mongoose");
+const Product             = require("../models/productModel");
+const ErrorHandler        = require("../utils/errorHandler");
+const catchAsyncError     = require("../middleware/catchAsyncError");
+const ApiFeatures         = require("../utils/ApiFeatures");
 
 exports.createProduct = catchAsyncError(async (req, res, next) => {
+    req.body.user = req.user.id;
 
     const product = await Product.create(req.body);
 
@@ -12,6 +13,7 @@ exports.createProduct = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getAllProducts = catchAsyncError(async (req, res) => {
+    console.log("get all products")
     const itemsPerPage  = 5;
     const totalProducts = await Product.countDocuments();
     const apiFeatures   = new ApiFeatures(Product.find(), req.query); // can also send Product(model) here
