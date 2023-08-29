@@ -115,3 +115,48 @@ exports.createProductReview = catchAsyncError(async(req, res, next) => {
         message: "product review created successfully"
     })
 })
+
+exports.getProductReviews = catchAsyncError(async (req, res, next) => {
+    const { productId } = req.query;
+
+    if (!productId) return next(new ErrorHandler("Product Id must be given"));
+
+    console.log(productId);
+    const product = await Product.findById(productId);
+    if (!product) return next(new ErrorHandler("Product not available"));
+
+    res.status(200).json({
+        success: false,
+        reviews: product.reviews
+    })
+})
+
+exports.deleteProductReview = catchAsyncError(async (req, res, next) => {
+    const { productId, reviewId } = req.query;
+
+    if (!productId || !reviewId) return next(new ErrorHandler("Product Id and Review Id must be given"));
+
+    const product = await Product.findById(productId);
+    if (!product) return next(new ErrorHandler("Product not available"));
+
+    // check if this user has created the review or is admin
+    const reviews = product.reviews.filter(rev => rev._id.toString() !== reviewId);
+    const numberOfReviews = reviews.length;
+
+    let avg = 0;
+    reviews.forEach(rev => avg += rev.rating);
+    const rating = avg/numberOfReviews; 
+
+    console.log(product);
+    
+    await Product.findByIdAndUpdate(productId, {reviews, rating, numberOfReviews }, {
+        new: true,
+        runValidators: true, 
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: false,
+        message: "Review deleted successfully"
+    })
+})
