@@ -1,0 +1,75 @@
+footer {
+    background-color: rgba(20, 18, 18, 0.85);
+    margin-top: 14vmax;
+    width: 100vw;
+    height: 20vmax;
+    display: flex;
+}
+
+.leftFooter {
+    width: 20%;
+    padding: 1vmax;
+    text-align: center;
+}
+
+.leftFooter > h4 {
+    margin: 0;
+    font-size: 2vmax;
+    color: rgba(255, 255, 255, 0.786);
+    font-family: "Roboto";
+}
+
+.leftFooter > p {
+    color: rgba(255, 255, 255, 0.641);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.leftFooter > img {
+    width: 14vmax;
+    margin: .5vmax;
+    cursor: pointer;
+}
+
+.midFooter {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.midFooter > h1 {
+    margin: 0;
+    color: rgba(220, 20, 60, 0.924);
+    font-family: "Roboto";
+}
+
+.midFooter > p {
+    margin-left: 6vmax;
+    color: white;
+    font-style: italic;
+}
+
+.rightFooter {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rightFooter > h4 {
+    color: white;
+    font-size: 1.8vmax;
+    font-family: "Roboto";
+}
+
+.rightFooter > a {
+    text-decoration: none;
+    color: white;
+    margin: .3vmax;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.rightFooter > a:hover {
+    color: coral;
+}
