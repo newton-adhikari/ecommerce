@@ -17,10 +17,10 @@ const footer = () => {
             </div>
             <div className="rightFooter">
                 <h4>Follow Us</h4>
-                <a href="">Linkedin</a>
-                <a href="">Facebook</a>
-                <a href="">Instagram</a>
-                <a href="">Twitter</a>
+                <a href="#">Linkedin</a>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
 
             </div>
         </footer>

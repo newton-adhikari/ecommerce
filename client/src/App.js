@@ -4,6 +4,8 @@ import Header from "./components/layout/header/header";
 import Footer from "./components/layout/footer/footer";
 import Home from "./components/Home/Home";
 import WebFont from "webfontloader";
+import MetaData from "./components/layout/MetaData";
+import Loader from "./components/layout/Loader/Loader";
 
 const App = () => {
     useEffect(() => {
@@ -15,6 +17,7 @@ const App = () => {
     }, [])
     return(
         <Router>
+            <MetaData title="Ecommerce" />
             <Header />
             <Route exact path="/" component={Home} />
             <Footer />
